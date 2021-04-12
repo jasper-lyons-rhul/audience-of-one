@@ -1,42 +1,42 @@
 /* Required External Modules */
 const express = require("express");
 const path = require("path");
-const firebase = require("firebase/app");
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 
 /* App Variables */
 const app = express();
 const port = process.env.PORT || "8000";
-const firebaseConfig = {
-  apiKey: "AIzaSyAhpWYBvDu_DF3HGig3Absum-qzKnOmm3k",
-  authDomain: "audience-of-one.firebaseapp.com",
-  projectId: "audience-of-one",
-  storageBucket: "audience-of-one.appspot.com",
-  messagingSenderId: "164576457461",
-  appId: "1:164576457461:web:037e8f768505b3bb404bbc",
-  measurementId: "G-521053G3PN"
-};
-
-firebase.initializeApp(firebaseConfig);
 
 /* App and route configuration */
 app.set('view engine', 'ejs');
+
+app.use(cookieParser());
+app.use(session({
+  secret: "secret",
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    secure: false
+  }
+}));
 
 app.get('/', function(req, res) {
   res.render('index')
 });
 
-app.get('/7f7rsyvn', function(req, res, next) {
-  const options = {
-    root: path.join(__dirname, '../files')
+const options = {
+  root: path.join(__dirname, '../files')
+}
+const fileName = 'testing.mp3'
+
+app.get('/test', function(req, res, next) {
+  if (req.session.views == 1) {
+    req.session.views++
+    res.sendFile(fileName, options)
+  } else {
+    res.render('sorry')
   }
-  const fileName = 'testing.mp3'
-  res.sendFile(fileName, options, function(err) {
-    if (err) {
-      next(err)
-    } else {
-      console.log('Sent', fileName)
-    }
-  })
 });
 
 /* Server Activation */
