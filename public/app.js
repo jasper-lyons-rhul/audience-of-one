@@ -1,13 +1,12 @@
 /* Required External Modules */
 const express = require("express");
 const path = require("path");
-import firebase from "firebase/app";
-import "firebase/analytics";
+const firebase = require("firebase/app");
 
 /* App Variables */
 const app = express();
 const port = process.env.PORT || "8000";
-cconst firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyAhpWYBvDu_DF3HGig3Absum-qzKnOmm3k",
   authDomain: "audience-of-one.firebaseapp.com",
   projectId: "audience-of-one",
