@@ -5,11 +5,11 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const fs = require('fs');
 
-/* App Variables */
+/* App variables */
 const app = express();
 const port = process.env.PORT || '8000';
 
-/* App and route configuration */
+/* App configuration */
 app.set('view engine', 'ejs');
 app.set('trust proxy', true);
 
@@ -23,52 +23,28 @@ app.use(session({
   }
 }));
 
+/* Variables needed to serve files and count views */
 const options = {
   root: path.join(__dirname, 'files')
 };
-
 const fileName = 'dotlet.mp4';
+const map = new Map();
 
+/* Route configuration */
+/* Homepage */
 app.get('/', function(req, res) {
   res.render('index')
 });
 
+/* Test file, no self-destruct */
 app.get('/test', function(req, res) {
   res.sendFile(fileName, options)
 });
 
-// app.get('/01', function(req, res, next) {
-//   if (req.session.views == 1) {
-//     req.session.views++
-//     res.sendFile(fileName, options)
-//   } else {
-//     res.render('sorry')
-//   }
-// });
+/* Test file with self-destruct */
+const urlID = 'uiop';
 
-const map = new Map();
-
-/* To be refactored into individual file paths */
-const urlID = 'adfknl';
-
-app.get('/' + urlID, function (req, res, next) {
-  const ipAddress = req.ip;
-
-  if (map.has(ipAddress) === false) {
-
-    res.sendFile(fileName, options)
-    map.set(ipAddress, urlID)
-
-  } else {
-    res.send('nope!');
-  }
-});
-/* -- */
-
-/* To be refactored into individual file paths */
-const urlID1 = 'ionjka';
-
-app.get('/' + urlID1, function (req, res) {
+app.get('/' + urlID, function (req, res) {
   const ipAddress = req.ip
 
   if (!map.has(ipAddress)) {
@@ -81,9 +57,6 @@ app.get('/' + urlID1, function (req, res) {
     res.send('nope!')
   }
 })
-
-/* -- */
-
 
 /* Server Activation */
 app.listen(port, () => {
