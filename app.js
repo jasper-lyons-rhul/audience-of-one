@@ -25,8 +25,12 @@ app.get('/', function(req, res) {
   res.render('index')
 });
 
-/* Function to create new one time links */
+/* Homepage */
+app.get('/control', function(req, res) {
+  res.sendFile('testing.mp3', options)
+});
 
+/* Function to create new one time links */
 function createNewLink (urlID, fileName) {
   app.get('/' + urlID, function (req, res) {
     const ipAddress = req.ip
@@ -39,7 +43,7 @@ function createNewLink (urlID, fileName) {
       res.render('sorry')
     }
   })
-}
+};
 
 createNewLink('testing', 'testing.mp3')
 
