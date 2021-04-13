@@ -1,3 +1,5 @@
+'use strict';
+
 /* Required External Modules */
 const express = require('express');
 const path = require('path');
@@ -24,7 +26,12 @@ app.use(session({
 
 /* Variables needed to serve files and count views */
 const options = {
-  root: path.join(__dirname, 'files')
+  maxAge: 0,
+  root: path.join(__dirname, 'files'),
+  headers: {
+    'Content-Type': 'audio/mp3'
+  },
+  dotfiles: 'ignore'
 };
 const fileName = 'testing.mp3';
 const map = new Map();
@@ -47,13 +54,10 @@ app.get('/' + urlID, function (req, res) {
   const ipAddress = req.ip
 
   if (!map.has(ipAddress)) {
-    console.log(map.has(ipAddress))
-
-    map.set(ipAddress, urlID)
     res.sendFile(fileName, options)
+    map.set(ipAddress, urlID)
 
   } else {
-    console.log(map.has(ipAddress))
     res.render('sorry')
   }
 })
