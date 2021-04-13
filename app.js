@@ -26,7 +26,7 @@ app.use(session({
 const options = {
   root: path.join(__dirname, 'files')
 };
-const fileName = 'dotlet.mp4';
+const fileName = 'testing.mp3';
 const map = new Map();
 
 /* Route configuration */
@@ -48,12 +48,13 @@ app.get('/' + urlID, function (req, res) {
 
   if (!map.has(ipAddress)) {
     console.log(map.has(ipAddress))
-    res.sendFile(fileName, options)
+
     map.set(ipAddress, urlID)
+    res.sendFile(fileName, options)
 
   } else {
     console.log(map.has(ipAddress))
-    res.send('nope!')
+    res.render('sorry')
   }
 })
 
