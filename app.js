@@ -3,8 +3,6 @@
 /* Required External Modules */
 const express = require('express');
 const path = require('path');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
 
 /* App variables */
 const app = express();
@@ -13,16 +11,6 @@ const port = process.env.PORT || '8000';
 /* App configuration */
 app.set('view engine', 'ejs');
 app.set('trust proxy', true);
-
-app.use(cookieParser());
-app.use(session({
-  secret: 'secret',
-  resave: true,
-  saveUninitialized: true,
-  cookie: {
-    secure: false
-  }
-}));
 
 /* Variables needed to serve files and count views */
 const options = {
