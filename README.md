@@ -34,6 +34,8 @@ For some reason, the `res.SendFile` command is not working where both the file i
 
 The page attempts to load the file, and then when refreshed will display the 'sorry' message – as expected – BUT the audio player is unable to play the file, as it looks like the file isn't properly loaded.
 
+_Update: Now I've deployed to Heroku it appears erratic – sometimes it works as expected with audio, sometimes not._ 🤷‍♀️
+
 You can view this buggy behaviour at http://localhost:8000/audionotworking.
 
 I guess this is something to do with the async nature of the two functions existing together in the if statement, but when I've tried to fix this with a Promise or other workarounds it hasn't worked.
