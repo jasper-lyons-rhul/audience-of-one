@@ -26,14 +26,9 @@ app.use(session({
 
 /* Variables needed to serve files and count views */
 const options = {
-  maxAge: 0,
-  root: path.join(__dirname, 'files'),
-  headers: {
-    'Content-Type': 'audio/mp3'
-  },
-  dotfiles: 'ignore'
+  root: path.join(__dirname, 'files')
 };
-const fileName = 'testing.mp3';
+
 const map = new Map();
 
 /* Route configuration */
@@ -42,25 +37,23 @@ app.get('/', function(req, res) {
   res.render('index')
 });
 
-/* Test file, no self-destruct */
-app.get('/test', function(req, res) {
-  res.sendFile(fileName, options)
-});
+/* Function to create new one time links */
 
-/* Test file with self-destruct */
-const urlID = 'uiop';
+function createNewLink (urlID, fileName) {
+  app.get('/' + urlID, function (req, res) {
+    const ipAddress = req.ip
 
-app.get('/' + urlID, function (req, res) {
-  const ipAddress = req.ip
+    if (!map.has(ipAddress)) {
+      res.sendFile(fileName, options)
+      map.set(ipAddress, urlID)
 
-  if (!map.has(ipAddress)) {
-    res.sendFile(fileName, options)
-    map.set(ipAddress, urlID)
+    } else {
+      res.render('sorry')
+    }
+  })
+}
 
-  } else {
-    res.render('sorry')
-  }
-})
+createNewLink('testing', 'testing.mp3')
 
 /* Server Activation */
 app.listen(port, () => {
