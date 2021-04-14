@@ -16,7 +16,7 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 /* Variables needed to serve files and count views */
 const options = {
-  root: path.join(__dirname, 'assets', 'files')
+  root: path.join(__dirname, 'public', 'files')
 };
 
 /* Route configuration */

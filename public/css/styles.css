@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -6,6 +8,7 @@ html {
 }
 body {
   margin-bottom: 60px; /* Margin bottom by footer height */
+  background-color: #F0EFF4 !important;
 }
 .footer {
   position: absolute;
@@ -15,6 +18,13 @@ body {
   background-color: #f5f5f5;
 }
 
+h1 {
+  font-family: 'Special Elite', cursive !important;
+}
+
+.page-header {
+  border-bottom: 1px solid #9E829C !important;
+}
 
 /* Custom page CSS
  * Not required for template or sticky footer method.
