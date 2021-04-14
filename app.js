@@ -11,8 +11,8 @@ const port = process.env.PORT || '8000';
 
 /* App configuration */
 app.set('view engine', 'ejs');
-app.use(express.static('css'));
-app.use(favicon(path.join(__dirname, 'assets', 'images', 'favicon.ico')));
+app.use(express.static('public'));
+app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 /* Variables needed to serve files and count views */
 const options = {
