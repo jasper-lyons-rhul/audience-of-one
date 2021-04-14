@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;400&family=Special+Elite&display=swap');
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -6,10 +6,13 @@ html {
   position: relative;
   min-height: 100%;
 }
+
 body {
   margin-bottom: 60px; /* Margin bottom by footer height */
   background-color: #F0EFF4 !important;
+  font-family: 'Raleway', sans-serif !important;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
