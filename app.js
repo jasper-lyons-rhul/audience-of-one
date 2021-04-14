@@ -32,14 +32,12 @@ app.get('/worksbutdoesntdisappear', function(req, res) {
 
 /* Function to create new one time links */
 function createNewLink (urlID, fileName) {
-  const map = new Map();
+  var count = 0;
 
   app.get('/' + urlID, function (req, res) {
-    const ipAddress = req.ip
-
-    if (!map.has(ipAddress)) {
+    if (count === 0) {
       res.sendFile(fileName, options)
-      map.set(ipAddress, urlID)
+      count++
 
     } else {
       res.render('sorry')

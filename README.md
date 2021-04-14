@@ -20,13 +20,17 @@ I'm a junior level developer, so my implementation of the 'one time only' files 
 
 This is a NodeJS app which uses ExpressJS. `app.js` is the server and holds the logic for routing, whereas the files that will be shared (mp3 files mainly) live in the `assets` directory.
 
-The basic idea for making the user experience a one-time-only use of each URL is to run an 'if statement' when they access that specific route, checking their IP address.
+The basic idea for making the user experience a one-time-only use of each URL is to run an 'if statement' when they access that specific route, _Edit 14-Apr: refactored to use a simpler 'counter' rather than an array with IP address._ ~~checking their IP address.~~
 
-If they have not visited the URL before, their IP address won't be found, and they will be able to access the file specified and listen to that track. This is enabled through ExpressJS `res.SendFile`.
+~~If they have not visited the URL before, their IP address won't be found, and they will be able to access the file specified and listen to that track. This is enabled through ExpressJS `res.SendFile`.~~
 
-At this point their IP address will be stored in an array/'map', meaning that if they refresh the page, the check triggered by the 'if statement' will show they have visited before, and will serve an HTML page instead of the audio file.
+~~At this point their IP address will be stored in an array/'map', meaning that if they refresh the page, the check triggered by the 'if statement' will show they have visited before, and will serve an HTML page instead of the audio file.~~
 
-In the future I may investigate adding further checks using sessions and cookies and may implement a database.
+I now use a simpler `var count = 0` and `count++` implementation to avoid collecting IP addresses.
+
+The `count++` is triggered on the first time a URL is viewed, and the if statement means that if the user tries to view that URL again, instead of `res.SendFile` being used to send the track, a 'Time's Up' page will be rendered (`sorry.ejs`).
+
+In the future I hope to investigate adding further checks using sessions and cookies and may implement a database.
 
 ## What's not working
 
