@@ -25,28 +25,36 @@ app.get('/', function(req, res) {
   res.render('index')
 });
 
-/* Control – a page serving an mp3 file which doesn't disappear */
-app.get('/worksbutdoesntdisappear', function(req, res) {
-  res.sendFile('testing.mp3', options)
-});
-
-/* Function to create new one time links */
-function createNewLink (urlID, fileName) {
-  var count = 0;
-
-  app.get('/' + urlID, function (req, res) {
-    if (count === 0) {
-      res.sendFile(fileName, options)
-      count++
-
-    } else {
-      res.render('sorry')
-    }
-  })
+let database = {
+  'worksbutdoesntdisapear': {
+    filename: 'testing.mp3',
+    count: 2
+  },
+  'audionotworking': {
+    filename: 'testing.mp3',
+    count: 2
+  },
+  'pictureworking': {
+    filename: 'rufus.jpg',
+    count: 1
+  }
 };
 
-createNewLink('audionotworking', 'testing.mp3')
-createNewLink('pictureworking', 'rufus.jpg')
+app.get('/:id', function (req, res) {
+  if (!database.hasOwnProperty(req.params.id)) {
+    return res.render('sorry')
+  }
+
+  let file = database[req.params.id]
+
+  if (file.count <= 0) {
+    return res.render('sorry') 
+  }
+
+  file.count = file.count - 1
+
+  res.sendFile(file.filename, options)
+})
 
 /* Server Activation */
 app.listen(port, () => {
